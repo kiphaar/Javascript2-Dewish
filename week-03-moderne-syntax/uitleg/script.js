@@ -25,4 +25,19 @@ for(let fruit of fruits){
 }
 
 
+let title = document.getElementById('title');
+let button = document.getElementById('btn');
+let section = document.getElementById('section');
+
+button.addEventListener('click', () => {
+    title.textContent = 'inshallah klik';
+    title.classList.toggle('active')
+
+    const p = document.createElement('p')
+
+    p.textContent = "ik ben gay";
+    section.appendChild(p)
+})
+
+
 
