@@ -1,3 +1,6 @@
+const origineel = document.getElementById("origineel")
+
+
 const people = [
   { name: 'Lisa', age: 28, city: 'Amsterdam' },
   { name: 'Mark', age: 34, city: 'Rotterdam' },
@@ -7,6 +10,21 @@ const people = [
 
 // 1. Toon in #origineel de originele lijst met alleen namen en steden.
 //    Gebruik destructuring in je .map().
+
+const result = people.map(({name , city}) => {
+  return `<p>${name} ${city}</p>`
+})
+
+
+
+
+
+
+
+
+
+
+
 // 2. Maak met .map() en de spread operator een nieuwe array waarin
 //    de stad van elke persoon is gewijzigd naar 'Den Haag'.
 //    De originele people-array moet onveranderd blijven.
