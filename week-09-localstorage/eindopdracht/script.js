@@ -1,45 +1,83 @@
+
 let allPokemon = [];
 let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
 const saveFavorites = () => {
-  localStorage.setItem('favorites', JSON.stringify(favorites));
+    localStorage.setItem('favorites', JSON.stringify(favorites));
 };
 
 const showItems = (items) => {
-  // Zet elk item om naar een <article> met map() en toon het in #results
-  // Toon de afbeelding en naam van elke Pokémon
-  // Voeg een <button class="favorite-btn"> toe per kaartje
-  // Gebruik includes() om te checken of de naam al in favorites staat
-  // Geef de knop een andere tekst als de Pokémon al een favoriet is
 
-  // Voeg daarna een click event listener toe aan elke .favorite-btn
-  // De index i vertelt je welke Pokémon bij welke knop hoort: items[i].name
-  document.querySelectorAll('.favorite-btn').forEach((btn, i) => {
-    btn.addEventListener('click', () => {
-      // Voeg items[i].name toe aan favorites
-      // Roep saveFavorites() aan
-      // Roep showItems(items) opnieuw aan
+  
+    document.querySelector('#results').innerHTML = items.map((pokemon, i) => {
+
+      
+        const isFavorite = favorites.includes(pokemon.name);
+
+        return `
+            <article>
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png">
+                <h2>${pokemon.name}</h2>
+                <button class="favorite-btn" ${isFavorite ? 'disabled' : ''}>
+                    ${isFavorite ? 'Favoriet' : 'Favoriet maken'}
+                </button>
+            </article>
+        `;
+    }).join('');
+
+    // Voeg click event toe aan elke favorietenknop
+    document.querySelectorAll('.favorite-btn').forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+
+            favorites.push(items[i].name)
+
+            saveFavorites();
+
+            showItems(items);
+        });
     });
-  });
 };
 
-document.querySelector('#loading').textContent = 'Laden...';
 
+// Laat zien dat de Pokémon worden geladen
+document.querySelector('#loading').textContent = 'Laden...'
+
+
+// Haal Pokémon op via de API
 fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
-  .then(r => r.json())
-  .then(data => {
-    document.querySelector('#loading').textContent = '';
-    // Sla data.results op in allPokemon, voeg het id toe via de index
-    // Roep showItems() aan met allPokemon
-  })
-  .catch(error => {
-    document.querySelector('#loading').textContent = 'Er is iets misgegaan.';
-    console.error('Fout:', error);
-  });
+    .then(r => r.json())
+    .then(data => {
 
-// Maak een eventlistener voor de #show-all button
-// Roep showItems() aan met allPokemon
+        document.querySelector('#loading').textContent = ''
 
-// Maak een eventlistener voor de #show-favorites button
-// Filter allPokemon op namen die in favorites staan (gebruik includes())
-// Roep showItems() aan met het gefilterde resultaat
+        // Voeg een ID toe aan elke Pokémon
+        allPokemon = data.results.map((pokemon, i) => {
+            return {
+                ...pokemon,
+                id: i + 1
+            }
+        });
+
+        showItems(allPokemon);
+
+    })
+    .catch(error => {
+        document.querySelector('#loading').textContent = 'Er is iets misgegaan.'
+        console.error('Fout:', error)
+    });
+
+
+document.querySelector('#show-all').addEventListener('click', () => {
+    showItems(allPokemon);
+});
+
+
+
+document.querySelector('#show-favorites').addEventListener('click', () => {
+
+    const favoritePokemon = allPokemon.filter(pokemon =>
+        favorites.includes(pokemon.name)
+    );
+
+    showItems(favoritePokemon)
+});

@@ -1,3 +1,27 @@
-// Knop "Opslaan": gebruik localStorage.setItem() om de invoer op te slaan
-// Knop "Ophalen": gebruik localStorage.getItem() om de waarde op te halen
-// Null-check: toon een melding als er nog niets opgeslagen is
+
+const input = document.getElementById("input")
+const save = document.getElementById("save")
+const retrieve = document.getElementById("retrieve")
+const result = document.getElementById("result")
+
+
+save.addEventListener("click", function() {
+
+    localStorage.setItem("tekst", input.value)
+
+    result.textContent = "Tekst opgeslagen!"
+});
+
+
+retrieve.addEventListener("click", function() {
+
+    const opgeslagenTekst = localStorage.getItem("tekst")
+
+    if (opgeslagenTekst === null) {
+        
+        result.textContent = "Er is nog niets opgeslagen!"
+    } else {
+
+        result.textContent = opgeslagenTekst;
+    }
+});
