@@ -1,26 +1,51 @@
-let allArticles = [];
+
+let allArticles = []
 
 const showArticles = (articles) => {
-  // Zet elk artikel om naar een <article> met map() en toon het in #articles
-  // Toon de title, category en summary van elk artikel
+  const list = document.querySelector('#articles')
+
+  const html = articles.map(article => {
+    return `
+      <article>
+        <span>${article.category}</span>
+        <h2>${article.title}</h2>
+        <p>${article.summary}</p>
+      </article>
+    `;
+  });
+
+  list.innerHTML = html.join('')
 };
 
 fetch('./news.json')
   .then(r => r.json())
   .then(articles => {
-    // Sla de artikelen op in allArticles
-    // Roep showArticles() aan met allArticles
+    allArticles = articles;
+    showArticles(allArticles)
   })
-  .catch(error => console.error('Fout bij laden:', error));
+  .catch(error => console.error('Fout bij laden:', error))
 
-// Maak een eventlistener voor de #filter-alle button
-// Roep showArticles() aan met allArticles
+document.querySelector('#filter-alle').addEventListener('click', () => {
+  showArticles(allArticles)
+});
 
-// Maak een eventlistener voor de #filter-stad button
-// Filter allArticles op category 'Stad' en roep showArticles() aan
+document.querySelector('#filter-stad').addEventListener('click', () => {
 
-// Maak een eventlistener voor de #filter-technologie button
-// Filter allArticles op category 'Technologie' en roep showArticles() aan
+  const filtered = allArticles.filter(article => article.category === 'Stad')
+  showArticles(filtered)
+});
 
-// Maak een eventlistener voor de #filter-media button
-// Filter allArticles op category 'Media' en roep showArticles() aan
+
+document.querySelector('#filter-technologie').addEventListener('click', () => {
+
+  const filtered = allArticles.filter(article => article.category === 'Technologie')
+  showArticles(filtered)
+})
+
+
+
+document.querySelector('#filter-media').addEventListener('click', () => {
+  
+  const filtered = allArticles.filter(article => article.category === 'Media')
+  showArticles(filtered)
+});

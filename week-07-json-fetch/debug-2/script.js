@@ -1,5 +1,5 @@
-// Fout gevonden: _______________
-// Oplossing: _______________
+// Fout gevonden: { "name": "Toetsenbord", "price": 79 },
+// Oplossing: { "name": "Toetsenbord", "price": 79 }
 
 fetch('./products.json')
   .then(r => r.json())
