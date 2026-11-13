@@ -1,5 +1,5 @@
-// Fout gevonden: _______________
-// Oplossing: _______________
+// Fout gevonden: "new.json"
+// Oplossing: "news.json"
 
 fetch('./new.json')
   .then(r => r.json())

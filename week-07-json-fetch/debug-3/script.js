@@ -1,5 +1,5 @@
-// Fout gevonden: _______________
-// Oplossing: _______________
+// Fout gevonden: de commas missen in de json
+// Oplossing: commas zetten bij de eerste 2 arrays
 
 fetch('./users')
   .then(r => r.json())

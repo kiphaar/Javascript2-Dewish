@@ -1,1 +1,27 @@
-[]
+
+[
+  {
+    "title": "Pokémon: The First Movie",
+    "director": "Kunihiko Yuyama",
+    "year": 1998,
+    "genre": "Adventure"
+  },
+  {
+    "title": "Pokémon 2000",
+    "director": "Kunihiko Yuyama",
+    "year": 1999,
+    "genre": "Adventure"
+  },
+  {
+    "title": "Pokémon 3: The Movie",
+    "director": "Kunihiko Yuyama",
+    "year": 2000,
+    "genre": "Fantasy"
+  },
+  {
+    "title": "Pokémon: The Rise of Darkrai",
+    "director": "Kunihiko Yuyama",
+    "year": 2007,
+    "genre": "Fantasy"
+  }
+]

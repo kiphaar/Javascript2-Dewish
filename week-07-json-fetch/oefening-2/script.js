@@ -1,4 +1,14 @@
-// Vul eerst movies.json met minimaal 4 films:
-// [{"title":"","director":"","year":0,"genre":""}]
+fetch('./movies.json')
+  .then(response => response.json())
+  .then(movies => {
 
-// Schrijf daarna de fetch zelf (zelfde patroon als oefening 1)
+    const section = document.querySelector('#films')
+
+    movies.forEach(movie => {
+      const p = document.createElement('p')
+
+      p.textContent = movie.title + ' - ' + movie.director + ' (' + movie.year + ') - ' + movie.genre
+      section.appendChild(p)
+    });
+  })
+  .catch(error => console.error('Fout:', error))
